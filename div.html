@@ -18,6 +18,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <!--<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>-->
 
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css">
+
           
 
 	<!--Let browser know website is optimized for mobile-->
@@ -127,13 +129,16 @@
 	<div class="mdl-cell mdl-cell--1-col course-box"><i class="material-icons">keyboard_arrow_left</i></div>
 	<div class="mdl-cell mdl-cell--10-col course-box" style="max-height: 125px; overflow: hidden;"id="courseList" ondrop="drop(event)" ondragover="allowDrop(event)">
 	
-		<div id="2001ICT" class="demo-card-square mdl-card mdl-shadow--2dp col-6" draggable="true" ondragstart="drag(event)">
+		<div id="2001ICT" class="demo-card-square mdl-card mdl-shadow--2dp col-6 hasTooltip" draggable="true" ondragstart="drag(event)">
 		  <div class="mdl-card__title mdl-card--expand">
 			<h2 class="mdl-card__title-text">2001ICT</h2>
 		  </div>
 		  <div class="mdl-card__supporting-text">
 			Database Design
 		  </div>
+		</div>
+		<div> <!-- This class should hide the element, change it if needed -->
+			<p><b>Complex HTML</b> for your tooltip <i>here</i>!</p>
 		</div>
 		<div id="3066CT" class="demo-card-square mdl-card mdl-shadow--2dp col-6" draggable="true" ondragstart="drag(event)">
 		  <div class="mdl-card__title mdl-card--expand">
@@ -383,7 +388,17 @@
 			$("#table2").hide(2000);
 		});
 		
+		// Grab all elements with the class "hasTooltip"
+		$('.hasTooltip').each(function() { // Notice the .each() loop, discussed below
+			$(this).qtip({
+				content: {
+					text: $(this).next('div') // Use the "div" element next to this for the content
+				}
+			});
+		});
+		
 	  } );
   </script>
   <!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script> -->
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
 </html>
