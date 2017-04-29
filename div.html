@@ -137,9 +137,6 @@
 			Database Design
 		  </div>
 		</div>
-		<div class="qtip-youtube{}"> <!-- This class should hide the element, change it if needed -->
-			<p><b>Complex HTML</b> for your tooltip <i>here</i>!</p>
-		</div>
 		<div id="3066CT" class="demo-card-square mdl-card mdl-shadow--2dp col-6" draggable="true" ondragstart="drag(event)">
 		  <div class="mdl-card__title mdl-card--expand">
 			<h2 class="mdl-card__title-text">3066ICT</h2>
@@ -196,7 +193,7 @@
 	<!-- Table1 -->
 	<div id="table1">
 	<div>
-		<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><i class="material-icons" style="display: inline" id="lessYear">keyboard_arrow_left</i><h2 id="year" style="display: inline;"> 2017 </h2><i class="material-icons" style="display: inline" id="moreYear">keyboard_arrow_right</i></div>
+		<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><i class="material-icons" style="display: inline" id="moreYear">keyboard_arrow_left</i><h2 id="year" style="display: inline;"> 2017 </h2><i class="material-icons" style="display: inline" id="lessYear">keyboard_arrow_right</i></div>
 		<div class="mdl-grid" ondrop="drop(event)" ondragover="allowDrop(event)">
 		  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 1</h3></br></div>
 		  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 2</h3></br></div>
@@ -388,14 +385,14 @@
 			$("#table2").hide(2000);
 		});
 		
-		// Grab all elements with the class "hasTooltip"
+		/* Grab all elements with the class "hasTooltip"
 		$('.hasTooltip').each(function() { // Notice the .each() loop, discussed below
 			$(this).qtip({
 				content: {
 					text: $(this).next('div') // Use the "div" element next to this for the content
 				}
 			});
-		});
+		}); */
 		
 	  } );
   </script>

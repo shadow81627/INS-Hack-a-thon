@@ -6,7 +6,8 @@ from .models import Course
 
 def index(request):
     course_list = Course.objects.all()
-    context = {'course_list': course_list}
+    suggest_list = Course.objects.order_by('code')[:12]
+    context = {'course_list': course_list, 'suggest_list': suggest_list}
     return render(request, 'degrees/index.html', context)
 
 
