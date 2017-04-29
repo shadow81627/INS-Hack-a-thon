@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"> 
+	<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.5.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+	</style>
+	<script>
+	  $( function() {
+		$( ".draggable" ).draggable();
+		
+		// The html timeline 
+		var htmlStr = "";
+		// Numberumber of years to draw from current year.
+		var numYear = 4;
+		// The number of timesters in a year.
+		var numTrimester = 3;
+		// The number of courses in a year.
+		var numCourse = 6;
+		
+		// The html string to store the years
+		var year = "";
+		// The html string to store the trimesters 
+		var trimester = "";
+		// The html string tos tore the courses.
+		var course1 = "";
+		
+		var course2 = "";
+		
+		for (var i = 0; i < numYear; i++){
+			year += '<th colspan="9">' + new Date().getFullYear() + i + '</th>';
+			for (var j = 0; j < numTrimester; j++){
+				trimester += '<td colspan="3"> Trimester ' + j + 1 + '</td>';
+				for (var k = 0; k < numCourse; k++){
+					course1 += '<td>' + k % 3 + '<td>';
+				}
+				for (var k = 0; k < numCourse; k++){
+					course2 += '<td>' + k % 3 + '<td>';
+				}
+			}
+		}
+		
+		htmlStr = '<thead> <tr>' + year + '</thead> <tbody> <tr>' + trimester + '</tr> <tr> ' + course1 + '</tr> <tr> ' + course2 + '</tr> <table>';
+		
+		$("#timeline" ).html(htmlStr);
+		
+		$( ".droppable" ).droppable({
+		  drop: function( event, ui ) {
+			$( this )
+			  .addClass( "ui-state-highlight" )
+			  .find( "p" )
+				.html( "Dropped!" );
+		  }
+		});
+		
+	  } );
+  </script>
+  <script>
+		function allowDrop(ev) {
+			ev.preventDefault();
+		}
+
+		function drag(ev) {
+			ev.dataTransfer.setData("text", ev.target.id);
+		}
+
+		function drop(ev) {
+			ev.preventDefault();
+			var data = ev.dataTransfer.getData("text");
+			ev.target.appendChild(document.getElementById(data));
+			add(data);
+			console.log(data);
+		}
+	</script>
+  </head>
+  <body>
+	<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
+	  <div class="dragabble ui-widget-content" draggable="true" ondragstart="drag(event)" id="2001ICT" width="88" height="31">2001 Database Design</div>
+	</div>
+	<p class="draggable ui-widget-content">course<p>
+	<div id="timeline">
+	</div>
+	<table style="width:100%">
+		<thead>
+			<tr>
+			<th colspan="9">Year</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+		<tr>
+			<td colspan="3">Trimester 1</td>
+			<td colspan="3">Trimester 2</td>
+			<td colspan="3">Trimester 3</td>
+		</tr>
+		<tr>
+			<td class="droppable ui-widget-content">1</td>
+			<td class="droppable ui-widget-content">2</td>
+			<td class="droppable ui-widget-content">3</td>
+			<td class="droppable ui-widget-content">1</td>
+			<td class="droppable ui-widget-content">2</td>
+			<td class="droppable ui-widget-content">3</td>
+			<td class="droppable ui-widget-content">1</td>
+			<td class="droppable ui-widget-content">2</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td class="droppable ui-widget-content">4</td>
+			<td class="droppable ui-widget-content">5</td>
+			<td class="droppable ui-widget-content">6</td>
+			<td class="droppable ui-widget-content">4</td>
+			<td class="droppable ui-widget-content">5</td>
+			<td class="droppable ui-widget-content">6</td>
+			<td class="droppable ui-widget-content">4</td>
+			<td class="droppable ui-widget-content">5</td>
+			<td class="droppable ui-widget-content">6</td>
+		</tr>
+	</table>
+  </body>
+</html>
