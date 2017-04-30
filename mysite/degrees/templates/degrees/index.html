@@ -41,9 +41,14 @@
 			padding: 10px;
 		}
 		
-		.courseList {
-			
+		#courseList {
+			overflow-x: auto;
+			white-space: nowrap;
+			max-height: 150px; 
+			overflow-y: hidden;
+			/*overflow: hidden; */
 		}
+		
 		</style>
 		  <script>
 		  var isRed = false;
@@ -148,7 +153,7 @@
 					<div class="mdl-grid">
 					{% if course_list %}
 					<div class="mdl-cell mdl-cell--1-col course-box"><i class="material-icons">keyboard_arrow_left</i></div>
-						<div class="mdl-cell mdl-cell--10-col course-box" style="max-height: 125px; overflow: hidden;"id="courseList" ondrop="drop(event)" ondragover="allowDrop(event)">
+						<div class="mdl-cell mdl-cell--10-col course-box" style="" id="courseList" ondrop="drop(event)" ondragover="allowDrop(event)">
 						{% for course in course_list %}
 							<div id="{{ course.code }}" class="demo-card-square mdl-card mdl-shadow--2dp col-6 hasTooltip" draggable="true" ondragstart="drag(event)">
 								<div class="mdl-card__title mdl-card--expand">
