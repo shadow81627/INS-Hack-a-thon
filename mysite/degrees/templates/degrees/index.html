@@ -40,6 +40,10 @@
 			/*max-height: 400px;*/
 			padding: 10px;
 		}
+		
+		.courseList {
+			
+		}
 		</style>
 		  <script>
 		  var isRed = false;
@@ -166,7 +170,7 @@
 					</div>
 					<!-- Table1 -->
 						<div id="table1">
-							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><i class="material-icons" style="display: inline" id="moreYear">keyboard_arrow_left</i><h2 id="year" style="display: inline;"> 2017 </h2><i class="material-icons" style="display: inline" id="lessYear" href="/degrees/2018/">keyboard_arrow_right</i></div>
+							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><i class="material-icons moreYear" style="display: inline" id="">keyboard_arrow_left</i><h2 id="year" style="display: inline;"> 2017 </h2><i class="material-icons lessYear" style="display: inline" id="" href="/degrees/2018/">keyboard_arrow_right</i></div>
 							<div class="mdl-grid" ondrop="drop(event)" ondragover="allowDrop(event)">
 							  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 1</h3></br></div>
 							  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 2</h3></br></div>
@@ -175,7 +179,7 @@
 						</div>
 						<!-- Table2 -->
 						<div id="table2" style="display: none;">
-							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><i class="material-icons" style="display: inline" id="lessYear">keyboard_arrow_left</i><h2 id="year" style="display: inline;"> 2018 </h2><i class="material-icons" style="display: inline" id="moreYear" href="/degrees/2018/">keyboard_arrow_right</i></div>
+							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><i class="material-icons moreYear" style="display: inline" id="">keyboard_arrow_left</i><h2 id="year" style="display: inline;"> 2018 </h2><i class="material-icons lessYear" style="display: inline" id="" href="/degrees/2018/">keyboard_arrow_right</i></div>
 							<div class="mdl-grid" ondrop="drop(event)" ondragover="allowDrop(event)">
 							  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 1</h3></br></div>
 							  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 2</h3></br></div>
@@ -184,11 +188,11 @@
 						</div>
 						{% if suggest1_list %}
 						<div class="mdl-grid">
-							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><h2><span class="mdl-chip mdl-chip--contact">
-    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><img src="https://randomuser.me/api/portraits/men/52.jpg"></span>
-    <span class="mdl-chip__text">Damien Robinson's shared degree plan</span></span></h2><button id="shareButton" class="mdl-button mdl-js-button mdl-button--raised">
-  Share
-</button><span id="shareLink" style="display: none"> https://www.griffith.edu.au/__data/assets/image/0004/552325/griffith-logo-g7.png </span></div>
+							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><button id="shareButton" style="margin: 15px;" class="mdl-button mdl-js-button mdl-button--raised">
+  <i>Share My Plan</i>
+</button><span id="shareLink" style="display: none"> https://www.griffith.edu.au/__data/assets/image/0004/552325/griffith-logo-g7.png </span><h2><span class="mdl-chip mdl-chip--contact">
+    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">F</span>
+    <span class="mdl-chip__text">My Friends Plan</span></span></h2></div>
 							<div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 1</h3></br>
 							{% for course in suggest1_list %}
 								<div id="{{ course.code }}" class="demo-card-square mdl-card mdl-shadow--2dp col-6 hasTooltip" draggable="true" ondragstart="drag(event)">
@@ -275,13 +279,13 @@
 	<script>
 	 $(function() {
 		
-		$('#lessYear').click(function(){
+		$('.lessYear').click(function(){
 			//console.log($(this).parent().text());
 			//this code works
 			$("#table1").hide();
 			$("#table2").show(750);
 		});
-		$('#moreYear').click(function(){
+		$('.moreYear').click(function(){
 			$("#table1").show();
 			$("#table2").hide(750);
 		});
