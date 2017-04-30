@@ -55,9 +55,7 @@
 		function drop(ev) {
 			ev.preventDefault();
 			var data = ev.dataTransfer.getData("text");
-			console.log(data);
 			ev.target.appendChild(document.getElementById(data));
-			console.log(data);
 			if (data === "5901LHS"){
 				if (isRed){
 					document.getElementById("1101IBA").style.background = "white";
@@ -115,6 +113,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	</head>
 	<body>
+
 		<!-- This part is the menu -->
 		<div class="mdl-layout mdl-js-layout">
 			<header class="mdl-layout__header">
@@ -187,8 +186,9 @@
 						<div class="mdl-grid">
 							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><h2><span class="mdl-chip mdl-chip--contact">
     <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><img src="https://randomuser.me/api/portraits/men/52.jpg"></span>
-    <span class="mdl-chip__text">Damien Robinson's shared degree plan</span>
-</span></h2></div>
+    <span class="mdl-chip__text">Damien Robinson's shared degree plan</span></span></h2><button id="shareButton" class="mdl-button mdl-js-button mdl-button--raised">
+  Share
+</button><span id="shareLink" style="display: none"> https://www.griffith.edu.au/__data/assets/image/0004/552325/griffith-logo-g7.png </span></div>
 							<div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 1</h3></br>
 							{% for course in suggest1_list %}
 								<div id="{{ course.code }}" class="demo-card-square mdl-card mdl-shadow--2dp col-6 hasTooltip" draggable="true" ondragstart="drag(event)">
@@ -270,6 +270,7 @@
 			border: 1px solid black;
 			border-collapse: collapse;
 		}
+		
 	</style>
 	<script>
 	 $(function() {
@@ -293,6 +294,9 @@
 				}
 			});
 		}); */
+		$('#shareButton').click(function(){
+			$("#shareLink").toggle();
+		});
 		
 	  } );
 	</script>
