@@ -33,8 +33,7 @@
 		  overflow: hidden;
 		}
 		.demo-card-square > .mdl-card__title {
-		  color: #fff;
-		  background: #46B6AC;
+
 		}
 		.course-box {
 			min-height: 125px;
@@ -43,6 +42,8 @@
 		}
 		</style>
 		  <script>
+		  var isRed = false;
+		  
 		function allowDrop(ev) {
 			ev.preventDefault();
 		}
@@ -54,9 +55,24 @@
 		function drop(ev) {
 			ev.preventDefault();
 			var data = ev.dataTransfer.getData("text");
-			ev.target.appendChild(document.getElementById(data));
-			add(data);
 			console.log(data);
+			ev.target.appendChild(document.getElementById(data));
+			console.log(data);
+			if (data === "5901LHS"){
+				if (isRed){
+					document.getElementById("1101IBA").style.background = "white";
+					document.getElementById("5901LHS").style.background = "white";
+				}else {
+					document.getElementById("1101IBA").style.background = "#BCBCBC";
+					document.getElementById("5901LHS").style.background = "#FF5D73";
+					isRed = true;
+				}
+			}
+			if (data === "1101IBA"){
+					document.getElementById("1101IBA").style.background = "white";
+					document.getElementById("5901LHS").style.background = "white";
+				}
+
 		}
 		
 /*		function lessYear() {
@@ -106,7 +122,7 @@
 					<!-- Title -->
 					<span class="mdl-layout-title"><img height="" width="" src="https://www.griffith.edu.au/__data/assets/image/0004/552325/griffith-logo-g7.png"></span>
 					<!-- Add spacer, to align navigation to the right -->
-					<div class="mdl-layout-spacer">Degree Builder</div>
+					<div class="mdl-layout-spacer"></div>
 					<!-- Navigation -->
 					<div class="mdl-navigation">
 						<a class="mdl-navigation__link" href="" style="font-weight: bold;">Study</a>
@@ -139,27 +155,64 @@
 									<a href="{% url 'detail' course.id %}">{{ course.name }}</a>
 								</div>
 							</div>
-							<div> <!-- This class should hide the element, change it if needed -->
+							<!--<div> <!-- This class should hide the element, change it if needed
 								<p>{{ course.description }}</p>
+							</div> -->
+							<div class="mdl-tooltip" data-mdl-for="{{ course.code }}">
+							{{ course.description }}
 							</div>
 						{% endfor %}
 						</div> 
 						<div class="mdl-cell mdl-cell--1-col course-box"><i class="material-icons">keyboard_arrow_right</i></div>
 					</div>
 					<!-- Table1 -->
-						<div>
-							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><i class="material-icons" style="display: inline" id="lessYear">keyboard_arrow_left</i><h2 id="year" style="display: inline;"> 2017 </h2><i class="material-icons" style="display: inline" id="moreYear" href="/degrees/2018/">keyboard_arrow_right</i></div>
+						<div id="table1">
+							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><i class="material-icons" style="display: inline" id="moreYear">keyboard_arrow_left</i><h2 id="year" style="display: inline;"> 2017 </h2><i class="material-icons" style="display: inline" id="lessYear" href="/degrees/2018/">keyboard_arrow_right</i></div>
 							<div class="mdl-grid" ondrop="drop(event)" ondragover="allowDrop(event)">
 							  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 1</h3></br></div>
 							  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 2</h3></br></div>
 							  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 3</h3></br></div>
 							</div>
 						</div>
-						{% if suggest_list %}
-						<div>
-							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><h2>Suggested</h2></div>
+						<!-- Table2 -->
+						<div id="table2" style="display: none;">
+							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><i class="material-icons" style="display: inline" id="lessYear">keyboard_arrow_left</i><h2 id="year" style="display: inline;"> 2018 </h2><i class="material-icons" style="display: inline" id="moreYear" href="/degrees/2018/">keyboard_arrow_right</i></div>
+							<div class="mdl-grid" ondrop="drop(event)" ondragover="allowDrop(event)">
+							  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 1</h3></br></div>
+							  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 2</h3></br></div>
+							  <div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 3</h3></br></div>
+							</div>
+						</div>
+						{% if suggest1_list %}
+						<div class="mdl-grid">
+							<div class="mdl-cell mdl-cell--12-col" style="text-align: center;"><h2><span class="mdl-chip mdl-chip--contact">
+    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white"><img src="https://randomuser.me/api/portraits/men/52.jpg"></span>
+    <span class="mdl-chip__text">Damien Robinson's shared degree plan</span>
+</span></h2></div>
 							<div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 1</h3></br>
-							{% for course in suggest_list %}
+							{% for course in suggest1_list %}
+								<div id="{{ course.code }}" class="demo-card-square mdl-card mdl-shadow--2dp col-6 hasTooltip" draggable="true" ondragstart="drag(event)">
+									<div class="mdl-card__title mdl-card--expand">
+										  <h2 class="mdl-card__title-text">{{ course.code }}</h2>
+									</div>
+									<div class="mdl-card__supporting-text">
+										<a href="{% url 'detail' course.id %}">{{ course.name }}</a>
+									</div>
+								</div>
+								<!--<div> <!-- This class should hide the element, change it if needed 
+									<p>{{ course.description }}</p>
+								</div>	-->	
+								<div class="mdl-tooltip" data-mdl-for="{{ course.code }}">
+							{{ course.description }}
+							</div>							
+							{% endfor %}
+						</div>
+						{% else %}
+							<p>No suggestions are available.</p>
+						{% endif %}
+						{% if suggest2_list %}
+						<div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 2</h3></br>
+							{% for course in suggest2_list %}
 								<div id="{{ course.code }}" class="demo-card-square mdl-card mdl-shadow--2dp col-6 hasTooltip" draggable="true" ondragstart="drag(event)">
 									<div class="mdl-card__title mdl-card--expand">
 										<h2 class="mdl-card__title-text">{{ course.code }}</h2>
@@ -168,11 +221,34 @@
 										<a href="{% url 'detail' course.id %}">{{ course.name }}</a>
 									</div>
 								</div>
-								<div> <!-- This class should hide the element, change it if needed -->
+								<!--<div> <!-- This class should hide the element, change it if needed 
 									<p>{{ course.description }}</p>
+								</div>	-->	
+<div class="mdl-tooltip" data-mdl-for="{{ course.code }}">
+							{{ course.description }}
+							</div>								
+							{% endfor %}
+						</div>
+						{% else %}
+							<p>No suggestions are available.</p>
+						{% endif %}
+						{% if suggest3_list %}
+						<div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 3</h3></br>
+							{% for course in suggest3_list %}
+								<div id="{{ course.code }}" class="demo-card-square mdl-card mdl-shadow--2dp col-6 hasTooltip" draggable="true" ondragstart="drag(event)">
+									<div class="mdl-card__title mdl-card--expand">
+										<h2 class="mdl-card__title-text">{{ course.code }}</h2>
+									</div>
+									<div class="mdl-card__supporting-text">
+										<a href="{% url 'detail' course.id %}">{{ course.name }}</a>
+									</div>
 								</div>
-								{% if forloop.counter0|divisibleby:8 %}</div><div class="mdl-cell mdl-cell--4-col course-box mdl-shadow--2dp"><h3 style="text-align: center;">Trimester 2</h3></br> What{% endif %}
-								
+								<!--<div> <!-- This class should hide the element, change it if needed 
+									<p>{{ course.description }}</p>
+								</div>	-->	
+								<div class="mdl-tooltip" data-mdl-for="{{ course.code }}">
+								{{ course.description }}
+								</div>								
 							{% endfor %}
 						</div>
 						{% else %}
@@ -187,6 +263,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
 	<style>
 		table, th, td {
 			border: 1px solid black;
@@ -195,102 +273,31 @@
 	</style>
 	<script>
 	 $(function() {
-		//$( ".draggable" ).draggable();
-		
-		// The html timeline 
-		var htmlStr = "";
-		// Numberumber of years to draw from current year.
-		var numYear = 4;
-		// The number of timesters in a year.
-		var numTrimester = 3;
-		// The number of courses in a year.
-		var numCourse = 6;
-		
-		// The html string to store the years
-		var year = "";
-		// The html string to store the trimesters 
-		var trimester = "";
-		// The html string tos tore the courses.
-		var course1 = "";
-		
-		var course2 = "";
-		
-		for (var i = 0; i < numYear; i++){
-			year += '<th colspan="9">' + new Date().getFullYear() + i + '</th>';
-			for (var j = 0; j < numTrimester; j++){
-				trimester += '<td colspan="3"> Trimester ' + j + 1 + '</td>';
-				for (var k = 0; k < numCourse; k++){
-					course1 += '<td>' + k % 3 + '<td>';
-				}
-				for (var k = 0; k < numCourse; k++){
-					course2 += '<td>' + k % 3 + '<td>';
-				}
-			}
-		}
-		
-		htmlStr = '<thead> <tr>' + year + '</thead> <tbody> <tr>' + trimester + '</tr> <tr> ' + course1 + '</tr> <tr> ' + course2 + '</tr> <table>';
-		
-		$("#timeline" ).html(htmlStr);
-		
-		/*$( ".droppable" ).droppable({
-		  drop: function( event, ui ) {
-			$( this )
-			  .addClass( "ui-state-highlight" )
-			  .find( "p" )
-				.html( "Dropped!" );
-		  }
-		});*/
-		
-		 /*$('.slider-for').slick({
-		  infinite: true,
-		  slidesToShow: 3,
-		  slidesToScroll: 3
-		});*/
-		
-		var courses = "";
-		courseList = [["2001ICT", "Database Design"], ["1005ICT", "Business Infomatics"], ["1001ICT", "Programming 1"], ["3634ICT", "Network Security"], ["2001ICT", "Programming 2"], ["3001ICT", "Programming 3"]];
-		for (var i = 0; i < courseList.lenght; i++){
-			course = courseList[i];
-			courseCode = course[0];
-			courseName = course[1];
-			courses += '<div id="' + courseCode + '" class="demo-card-square mdl-card mdl-shadow--2dp col-6" draggable="true" ondragstart="drag(event)"> <div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">' + courseCode + '</h2></div><div class="mdl-card__supporting-text">' + courseName + '</div></div>';
-		}
-		$("#courseList" ).load(function() {
-		  courses = "";
-		  console.log(courses);
-		  for (var i = 0; i < courseList.lenght; i++){
-			course = courseList[i];
-			courseCode = course[0];
-			courseName = course[1];
-			courses += '<div id="' + courseCode + '" class="demo-card-square mdl-card mdl-shadow--2dp col-6" draggable="true" ondragstart="drag(event)"> <div class="mdl-card__title mdl-card--expand"><h2 class="mdl-card__title-text">' + courseCode + '</h2></div><div class="mdl-card__supporting-text">' + courseName + '</div></div>';
-		}
-		$(this).html(courses);
-		});
 		
 		$('#lessYear').click(function(){
 			//console.log($(this).parent().text());
 			//this code works
 			$("#table1").hide();
-			$("#table2").show(2000);
+			$("#table2").show(750);
 		});
 		$('#moreYear').click(function(){
 			$("#table1").show();
-			$("#table2").hide(2000);
+			$("#table2").hide(750);
 		});
 		
-		// Grab all elements with the class "hasTooltip"
+		/* Grab all elements with the class "hasTooltip"
 		$('.hasTooltip').each(function() { // Notice the .each() loop, discussed below
 			$(this).qtip({
 				content: {
 					text: $(this).next('div') // Use the "div" element next to this for the content
 				}
 			});
-		});
+		}); */
 		
 	  } );
 	</script>
 	<!-- <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script> -->
-	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+	
 </html>
 {% else %}
 	<p>No courses are available.</p>
